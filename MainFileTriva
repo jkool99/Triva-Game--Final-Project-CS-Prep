@@ -1,0 +1,304 @@
+const questions = {
+  q1: "\nQuestion 1: What does it mean when you spill the tea?\n\nA) You've messed up a saying\nB) You're spreading gossip\nC) You've betrayed your friend\nD) You fell on your face",
+  q1A: "The answer is B) spreading gossip. Gotta get that hot sip!",
+  q2: "Question 2: What is the name for the activity during the winter months when the cold weather extremely motivates people to 'couple up'?\n\nA) Sweater Weather\nB) Snowpack\nC) Cuffing Season\nD) Winterproof",
+  q2A: "The answer is C) Cuffing Season. Generally considered Oct - Mar, as the temperature drops, the number of couples rises.",
+  q3: "Question 3: Which one of these is not a real dating app?\n\nA) Tinder Online\nB) JDate\nC) Donald Daters\nD) BSwipe",
+  q3A: "The answer is D) BSwipe. Donald Daters is indeed a real dating app.",
+  q4: "Question 4: Who's the oldest of these Kardashian sisters?\n\nA) Kendall\nB) Kim\nC) Khloe\nD) Kris",
+  q4A: "The answer is B) Kim Kardashian! She is surprisingly 38 years old. Kris is the mother, not one of the sisters!",
+  q5: "Question 5: Who was your first friend on MySpace? \n\nA) Tom\nB) Tim\nC) Jim\nD) Steve",
+  q5A: "The answer is A) Tom! Whether or not you wanted him as a friend, Tom was always there smiling in front of his white board!",
+  qBonus: "Surprise Halftime Bonus Question! What was your Myspace name?",
+  qBonusY: "...yikes.\n\nBern2Fly2020, MrWorldwide300, and GrangerDanger934 all provided theirs as well, so all contestants get 1 bonus shot.",
+  qBonusN: "Darn, missed opportunity! Bern2Fly2020, MrWorldwide300, and GrangerDanger934 all provided theirs, so they each get a bonus shot.",
+  q6: "Question 6: What was the name of the original host of Blues Clues?\n\nA) Tom\nB) Tim\nC) Jim\nD) Steve",
+  q6A: "The answer is D) Steve! In 2002 Steve went to college leaving his best friend Blue behind, as well as our childhood",
+  q7: "Question 7: Which of the following is the highest-grossing video game franchise to date?\n\nA) Call of Duty\nB) Mario\nC) World of Warcraft\nD) Fifa",
+  q7A: "The answer is B) Mario! With other $550 million in sales, it's safe to say that this Italian plummer is doing quite well... but did Luigi get any of those profits?",
+  q8: "Question 8: Britney and Justin once wore matching outfits made entirely out of which material?\n\nA) Linen \nB) Denim \nC) Velvet \nD) Leather",
+	q8A: "The answer is B) Denim! What a power couple move, am I right?\n\nOnly a couple questions left, keep rackin up those shots before you head off to Fyre Fest!",
+  q9: "Question 9: In 2009, where did Kanye steal the mic from Taylor Swift? \n\nA) VMAs \nB) CMAs \nC) Grammys \nD) Golden Globes",
+	q9A: "The answer is A) VMAs-- Imma let you finish but...\n\nOnly 1 question left! You already deserve an avocado toast and an activated charcoal latte.",
+  q10: "Question 10: Who beat up Jay-Z in an elevator? \n\nA) Beyonce \nB) Kanye West \nC) Solange \nD) Rihanna",
+	q10A: "The answer is C) Solange! She truly is a national treasure.\n\nThat's a wrap on Millennial Trivia, you finished! Barack and Michelle are so proud of you right now!! Let's see what the final shotcount is."
+}
+const prompts = {
+  intro: "\nWELCOME TO MILLENNIAL TRIVIA at the Techy Tequila Beach Bar & Code!\n\nIf you think you're not a millennial, think again--if you were born between '81 and '96, there's nothing in this game you should miss!\n\nAre you ready to test your knowledge on the generation that has to deal with crippling student debt, wage stagnation, rocketing house prices, and climate change?",
+  instructions: "\nGAMEPLAY:\n\nThere will be 10 multiple choice questions for you to type in A, B, C, or D.\n\nPressing 'Cancel' at any point will exit the game and lose your progress.\n\nYou will be playing against 3 other bots: bernieSanders, pitbull, and hermioneGranger. For each question you get right, you will be racking up tequila shots. First place not only gets the chance to cash in on their tequila shots, but they also win the title of Millennial Expert!\n\nWe’re feeling generous, so we’ll start you off at 1 tequila shot on us.\n\nLET'S GET STARTED!\n",
+  noValue: "Hmm try inserting a value.",
+  correct: "Correct!",
+  incorrect: "Incorrect!",
+  tryAgain: "Hmm try again! Try omitting special characters and only typing in A, B, C, or D.",
+  cancel: "Cancel? That's alright--the average millennial attention span is 8 seconds. Thanks for playing! Your game has now been reset.",
+  halfTime: "Halfway through, the total shotcount is as follows. We'll announce the final shotcount at the end! Let's keep going.",
+  finalScores: "The final shotcount is...:",
+  finalWin: "CONGRATULATIONS! You are the winner!\n",
+  end: "\nHaven't won anything since high school? Didn’t think it’d be possible to have your parents be more disappointed in you? Well, now you can tell them you won a round of shots from Millennial Trivia at the Techy Tequila Beach Bar & Code.\n\nThanks for playing! We hope the tequila shots help with all the anxiety of being a millennial. Be sure to come back tomorrow evening for Furniture Trivia--what better theme could there be?\n",
+  finalLose: "Darn! No tequila shots, just crippling debt--but at least you can tell your parents you didn't win at Millennial Trivia.\n\nTry again next time, and thanks for playing Millennial Trivia! Be sure to come back tomorrow evening for Furniture Trivia--what better theme could there be?\n"
+}
+let you = "you";
+let bernieSanders = "bernieSanders";
+let pitbull = "pitbull";
+let hermioneGranger = "hermioneGranger";
+let playerPoints = 1;
+let hermionePoints = 1;
+let pitbullPoints = 1;
+let berniePoints = 1;
+function millennialTrivia () {
+  playerPoints = 1;
+  hermionePoints = 1;
+  pitbullPoints = 1;
+  berniePoints = 1;
+  function introduction () {
+    if(confirm(prompts.intro)) {
+      if(confirm(prompts.instructions)) {
+        questionOne ();
+      } else {
+        return cancel ();
+      }
+    } else {
+      return cancel ();
+    }
+  }
+  function questionOne () {
+    let y = prompt(questions.q1);
+    if (y === "b" || y === "B") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q1A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionOne();
+    } else if (y === "a" || y === "A" || y === "c" || y === "D" || y === "d" || y === "D") {
+      alert(prompts.incorrect + " " + questions.q1A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionOne();
+    }
+    botPoints ();
+    questionTwo();
+  }
+  function questionTwo () {
+    let y = prompt(questions.q2);
+    if (y === "c" || y === "C") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q2A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionTwo();
+    } else if (y === "a" || y === "A" || y === "b" || y === "B" || y === "d" || y === "D") {
+      alert(prompts.incorrect + " " + questions.q2A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionTwo();
+    }
+    botPoints ();
+    questionThree();
+  }
+  function questionThree() {
+    let y = prompt(questions.q3);
+    if (y === "d" || y === "D") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q3A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionThree();
+    } else if (y === "a" || y === "A" || y === "b" || y === "B" || y === "c" || y === "C") {
+      alert(prompts.incorrect + " " + questions.q3A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionThree();
+    }
+    botPoints();
+    questionFour();
+  }
+  function questionFour() {
+    let y = prompt(questions.q4);
+    if (y === "b" || y === "B") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q4A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionFour();
+    } else if (y === "a" || y === "A" || y === "d" || y === "D" || y === "c" || y === "C") {
+      alert(prompts.incorrect + " " + questions.q4A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionFour();
+    }
+    botPoints();
+    questionFive();
+  }
+  function questionFive() {
+    let y = prompt(questions.q5);
+    if (y === "a" || y === "A") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q5A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionFive();
+    } else if (y === "b" || y === "B" || y === "d" || y === "D" || y === "c" || y === "C") {
+      alert(prompts.incorrect + " " + questions.q5A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionFive();
+    }
+    botPoints();
+    bonusQuestion();
+  }
+  function bonusQuestion () {
+    let y = prompt(questions.qBonus);
+    if (y) {
+      playerPoints += 1;
+      alert(y + questions.qBonusY);
+    } else if (y === null) {
+      return cancel();
+    } else {
+      alert(questions.qBonusN);
+    }
+    hermionePoints += 1;
+    berniePoints += 1;
+    pitbullPoints += 1;
+    alert(`\n${prompts.halfTime}\n\n${you}: ${playerPoints}\n${bernieSanders}: ${berniePoints}\n${pitbull}: ${pitbullPoints}\n${hermioneGranger}: ${hermionePoints}\n`);
+    questionSix();
+  }
+  function questionSix() {
+    let y = prompt(questions.q6);
+    if (y === "d" || y === "D") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q6A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionSix();
+    } else if (y === "b" || y === "B" || y === "a" || y === "A" || y === "c" || y === "C") {
+      alert(prompts.incorrect + " " + questions.q6A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionSix();
+    }
+    botPoints();
+    questionSeven();
+  }
+  function questionSeven() {
+    let y = prompt(questions.q7);
+    if (y === "b" || y === "B") {
+      playerPoints += 1;
+      alert(prompts.correct + " " + questions.q7A);
+    } else if (y === null) {
+      return cancel();
+    } else if (y === "") {
+      alert(prompts.noValue);
+      return questionSeven();
+    } else if (y === "a" || y === "A" || y === "d" || y === "D" || y === "c" || y === "C") {
+      alert(prompts.incorrect + " " + questions.q7A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionSeven();
+    }
+    botPoints();
+    questionEight();
+  }
+	function questionEight() {
+  const response = prompt(questions.q8)
+  if (response === "B" || response === "b") {
+    playerPoints += 1;
+		alert(prompts.correct + " " + questions.q8A);
+  } else if (response === null) {
+      return cancel();
+    } else if (response === "") {
+      alert(prompts.noValue);
+      return questionEight();
+    } else if (response === "a" || response === "A" || response === "d" || response === "D" || response === "c" || response === "C") {
+      alert(prompts.incorrect + " " + questions.q8A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionEight();
+    }
+    botPoints();
+		questionNine();
+	}
+	function questionNine() {
+  const response = prompt(questions.q9)
+  if (response == "A" || response === "a") {
+    playerPoints += 1;
+		alert(prompts.correct + " " + questions.q9A);
+  } else if (response === null) {
+      return cancel();
+    } else if (response === "") {
+      alert(prompts.noValue);
+      return questionNine();
+    } else if (response === "B" || response === "b" || response === "d" || response === "D" || response === "c" || response === "C") {
+      alert(prompts.incorrect + " " + questions.q9A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionNine();
+    }
+    botPoints();
+		questionTen();
+	}
+	function questionTen() {
+  const response = prompt(questions.q10)
+  if (response == "C" || response === "c") {
+    playerPoints += 1;
+		alert(prompts.correct + " " + questions.q10A);
+  } else if (response === null) {
+      return cancel();
+    } else if (response === "") {
+      alert(prompts.noValue);
+      return questionTen();
+    } else if (response === "A" || response === "a" || response === "d" || response === "D" || response === "B" || response === "b") {
+      alert(prompts.incorrect + " " + questions.q10A);
+    } else {
+      alert(prompts.tryAgain);
+      return questionTen();
+    }
+    botPoints();
+		end();
+	}
+  function end () {
+    let pointsArray = [playerPoints, berniePoints, pitbullPoints, hermionePoints];
+    let sortedArray = pointsArray.slice().sort(function(a,b){return b-a})
+    let ranksArray = pointsArray.slice().map(function(v){ return sortedArray.indexOf(v)+1});
+    let playerArray = [you, bernieSanders, pitbull, hermioneGranger]
+    let finalArray = [];
+    for (let i = 0; i < ranksArray.length; i++) {
+      if (ranksArray[i] === 1) {
+        finalArray.push("1st")
+      } else if (ranksArray[i] === 2) {
+        finalArray.push("2nd")
+      } else if (ranksArray[i] === 3) {
+        finalArray.push("3rd")
+      } else {
+        finalArray.push("4th")
+      }
+    }
+    if (finalArray[playerArray.indexOf('you')] === '1st') {
+      alert(`\n${prompts.finalScores}\n\n${you}: ${playerPoints}\n${bernieSanders}: ${berniePoints}\n${pitbull}: ${pitbullPoints}\n${hermioneGranger}: ${hermionePoints}\n\nYou got ${finalArray[playerArray.indexOf('you')]}. ${prompts.finalWin}`);
+      alert(prompts.end);
+    } else {
+      alert(`\n${prompts.finalScores}\n\n${you}: ${playerPoints}\n${bernieSanders}: ${berniePoints}\n${pitbull}: ${pitbullPoints}\n${hermioneGranger}: ${hermionePoints}\n\nYou got ${finalArray[playerArray.indexOf('you')]}. ${prompts.finalLose}`)
+    }
+  }
+  function botPoints () {
+    hermionePoints += Math.floor(Math.random() * 2);
+    pitbullPoints += Math.floor(Math.random() * 2);
+    berniePoints += Math.floor(Math.random() * 2);
+  }
+  function cancel () {
+    alert(prompts.cancel);
+  }
+  return introduction();
+}
+millennialTrivia();
